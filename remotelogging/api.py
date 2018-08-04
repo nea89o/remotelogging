@@ -1,3 +1,5 @@
+from asyncio import Lock
+
 from aiohttp import ClientSession, ClientResponse
 
 
@@ -6,14 +8,24 @@ class RemoteLogger(object):
         self.base_url: str = base_url
         self.token: str = token
         self.session: ClientSession = None
+        self.lock = Lock()
 
     async def login(self):
         self.session: ClientSession = ClientSession(headers=dict(Authorization=self.token))
 
+    async def login_if_required(self):
+        if self.session is None:
+            async with self.lock:
+                if self.session is None:
+                    self.login()
+        return self.session
+
     async def verify(self):
+        await self.login_if_required()
         return await self.get('api/verify')
 
     async def log(self, template, **kwargs):
+        await self.login_if_required()
         return await self.post(f'api/logs/{template}', data=kwargs)
 
     async def get(self, url):
