@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+    Deleting token {{ token.name }}
+{% endblock %}
+{% block body %}
+    <form action="{{ url_for('remotelogging.server.tokens.delete_token') }}" method="post">
+        <input type="hidden" name="token" value="{{ token.id }}">
+        <p>Delete token {{ token.name }} last used {{ token.last_used }}?</p>
+        <p><input type="submit" value="DELETE"><a href="{{ url_for('remotelogging.server.tokens.tokens') }}">Cancel</a></p>
+    </form>
+{% endblock %}

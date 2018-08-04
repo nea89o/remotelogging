@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+    Logs
+{% endblock %}
+{% block body %}
+    <p>
+        {% if offset and offset > 0 %}
+            <a href="{{ url_for('remotelogging.server.logs.view_logs', page=offset-1) }}">Previous</a>
+        {% endif %}
+        <a href="{{ url_for('remotelogging.server.logs.view_logs', page=offset + 1) }}">Next</a>
+    </p>
+    <table>
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Text</th>
+            <th>Reported from.</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entry in entries %}
+            <tr>
+                {% include"display-log-entry.html" %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

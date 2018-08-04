@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+    Add a Template
+{% endblock %}
+{% block body %}
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="{{ url_for('remotelogging.server.templates.do_add_template') }}" method="post">
+        <label>Name: <input name="name" placeholder="Template name"></label>
+        <label title="Only alphanumeric chars, dashes and underscores">Id: <input name="id" minlength="4" pattern="[a-z0-9A-Z\-_]{4,}" placeholder="template-id"></label>
+        <label>Text: <input name="text" placeholder="text with {variables}"></label>
+        <input type="submit" value="Add template">
+    </form>
+    <p><a href="{{ url_for('remotelogging.server.templates.list_templates') }}">Go back</a></p>
+{% endblock %}

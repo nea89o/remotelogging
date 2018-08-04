@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    Add a token
+{% endblock %}
+{% block body %}
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="{{ url_for('remotelogging.server.tokens.do_add_token') }}" method="post">
+        <label>Name: <input name="name" placeholder="token name"></label>
+        <input type="submit" value="Add token">
+    </form>
+    <p><a href="{{ url_for('remotelogging.server.tokens.tokens') }}">Go back</a> </p>
+{% endblock %}

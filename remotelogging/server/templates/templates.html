@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+    Templates
+{% endblock %}
+{% block body %}
+    <table>
+        <thead>
+        <tr>
+            <th>Template id</th>
+            <th>Template name</th>
+            <th>Template text</th>
+            <th>Template variables</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for template in templates %}
+            <tr>
+                {% include "partial/display-template-table.html" %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="6" align="center"><a href="{{ url_for("remotelogging.server.templates.add_template") }}">Add template</a> </td>
+        </tr>
+        </tfoot>
+    </table>
+{% endblock %}

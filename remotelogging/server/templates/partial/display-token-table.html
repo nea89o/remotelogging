@@ -1,0 +1,4 @@
+<th align="left">{{ token.name }}</th>
+<td>{{ token.last_used }}</td>
+<td><a href="#" class="link" onclick="this.outerHTML='<pre>{{ token.id }}</pre>';">Show token</a></td>
+<td><a href="{{ url_for("remotelogging.server.tokens.confirm_delete_token", token=token.id) }}">Delete token</a></td>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}
+    Tokens
+{% endblock %}
+{% block body %}
+    <table>
+        <thead>
+        <tr>
+            <th>Token name</th>
+            <th>Last used</th>
+            <th>Token</th>
+        </tr>
+        </thead>
+        {% for token in tokens %}
+            <tr>
+                {% include "partial/display-token-table.html" %}
+            </tr>
+        {% endfor %}
+        <tfoot>
+        <tr>
+            <td colspan="3" align="center">
+                <a href="{{ url_for('remotelogging.server.tokens.add_token') }}">Add token</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+{% endblock %}
