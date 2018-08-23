@@ -19,15 +19,23 @@ timezone = config.r_timezone
 
 
 def db_setup():
+    conn = r.connect(host=RDB_HOST, port=RDB_PORT)
     try:
-        conn = r.connect(host=RDB_HOST, port=RDB_PORT)
         r.db_create(RDB_DATABASE).run(conn)
-        r.table_create('logs').run(conn)
-        r.table_create('tokens').run(conn)
-        r.table_create('templates').run(conn)
-        print('Database setup completed')
     except RqlRuntimeError:
         print('Database already exists.')
+    try:
+        r.table_create('logs').run(conn)
+    except RqlRuntimeError:
+        print('Logs table already exists.')
+    try:
+        r.table_create('tokens').run(conn)
+    except RqlRuntimeError:
+        print('Tokens table already exists.')
+    try:
+        r.table_create('templates').run(conn)
+    except RqlRuntimeError:
+        print('Templates table already exists.')
 
 
 db_setup()

@@ -21,4 +21,4 @@ def view_logs():
     except ValueError:
         offset = 0
     return render_template('logs.html', fill_text=fill_text, offset=offset,
-                           entries=r.table('logs').skip(50 * offset).limit(50).run(g.rdb_conn))
+                           entries=r.table('logs').order_by('time').skip(50 * offset).limit(50).run(g.rdb_conn))

@@ -17,7 +17,7 @@ class RemoteLogger(object):
         if self.session is None:
             async with self.lock:
                 if self.session is None:
-                    self.login()
+                    await  self.login()
         return self.session
 
     async def verify(self):
